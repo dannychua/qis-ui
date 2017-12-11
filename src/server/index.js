@@ -62,6 +62,6 @@ app.listen(config.APP_SERVER_PORT, (error) => {
 	if (error) {
 		console.error(error)
 	} else {
-		console.log('\nApp server running at: http://' + config.APP_SERVER_HOST + ':' + config.APP_SERVER_PORT);
+		console.log('\nApp server running at: http://' + config.API_SERVER_HOST + ':' + config.API_SERVER_PORT);
 	}
 })
