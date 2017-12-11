@@ -58,7 +58,7 @@ app.get('/api/latestUpdateDate', function(req, res) {
 })
 
 
-app.listen(config.APP_SERVER_PORT, (error) => {
+app.listen(config.API_SERVER_PORT, (error) => {
 	if (error) {
 		console.error(error)
 	} else {
