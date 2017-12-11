@@ -1,7 +1,7 @@
 var express = require('express');
 var cors = require('cors')
 
-var config = require('../../config/server');
+var config = require('../config/server');
 
 const app = new express();
 app.use(cors());

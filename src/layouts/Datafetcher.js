@@ -4,10 +4,11 @@ import 'moment-timezone';
 
 import { Row, Col, Table } from 'reactstrap';
 
-var config = require('../../config/server');
+var config = require('../config/server.js');
 
 
-const apiBaseUrl = 'http://${config.API_SERVER_HOST}:${API_SERVER_PORT}/api/';
+const apiBaseUrl = `http://${config.API_SERVER_HOST}:${config.API_SERVER_PORT}/api/`;
+console.log(apiBaseUrl)
 
 
 
