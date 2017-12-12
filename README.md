@@ -21,10 +21,15 @@ Edit `config/server.js` with correct password
 
     npm install
     npm run build
-    serve -s build -p 3000
+    screen
+        serve -s build -p 3000
+    screen
+        node source/server/index.js
 
 For updating:
 
     git pull
     npm run build
     serve -s build -p 3000
+
+Then restart the programs running inside `screen`.

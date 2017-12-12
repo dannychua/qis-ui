@@ -42,7 +42,7 @@ app.get('/api/securitiesLatestUpdate', function(req, res) {
 
 		`, function(err, results, fields) {
 		if (err)
-			throw err;
+			console.log('[securitiesLatestUpdate] Error with MySQL query : ', err);
 
 		res.end(JSON.stringify(results));
 	})
