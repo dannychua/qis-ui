@@ -18,7 +18,7 @@ var mysql = require('./db/mysql');
 // https://stackoverflow.com/questions/12526194/mysql-inner-join-select-only-one-row-from-second-table
 app.get('/api/securitiesLatestUpdate', function(req, res) {
 
-	mysql(function(err, connection) {
+	mysql.getConnection(function(err, connection) {
 		connection.query(`SELECT a.symbol,  c.date, c.open, c.high, c.low, c.close, c.adjClose, c.volume
 			FROM securities a
 			INNER JOIN stocksYahoo c
