@@ -11,50 +11,50 @@ app.get('/', function(req, res) {
 });
 
 
-var mysql = require('mysql')
-var connection = mysql.createConnection({
-	host: config.MYSQL.HOST,
-	user: config.MYSQL.USER,
-	password: config.MYSQL.PASSWORD,
-	database: config.MYSQL.DB,
-});
-connection.connect(function(err) {
-	if (err) 
-		throw err;
-	else
-		console.log('Connected to MySQL server')
-});
+var mysql = require('./db/mysql');
+
 
 
 // https://stackoverflow.com/questions/12526194/mysql-inner-join-select-only-one-row-from-second-table
 app.get('/api/securitiesLatestUpdate', function(req, res) {
-	connection.query(`SELECT a.symbol,  c.date, c.open, c.high, c.low, c.close, c.adjClose, c.volume
-		FROM securities a
-		INNER JOIN stocksYahoo c
-			ON a.symbol = c.symbol
-		INNER JOIN (
-			SELECT symbol, MAX(date) maxDate
-			FROM stocksYahoo
-			GROUP BY symbol
-		) b 
-			ON c.symbol = b.symbol AND
-				c.date = b.maxDate
 
-		`, function(err, results, fields) {
-		if (err)
-			console.log('[securitiesLatestUpdate] Error with MySQL query : ', err);
+	mysql(function(err, connection) {
+		connection.query(`SELECT a.symbol,  c.date, c.open, c.high, c.low, c.close, c.adjClose, c.volume
+			FROM securities a
+			INNER JOIN stocksYahoo c
+				ON a.symbol = c.symbol
+			INNER JOIN (
+				SELECT symbol, MAX(date) maxDate
+				FROM stocksYahoo
+				GROUP BY symbol
+			) b 
+				ON c.symbol = b.symbol AND
+					c.date = b.maxDate
 
-		res.end(JSON.stringify(results));
-	})
+			`, function(err, results, fields) {
+			if (err)
+				console.log('[securitiesLatestUpdate] Error with MySQL query : ', err);
+
+			res.end(JSON.stringify(results));
+
+			connection.release();
+		});
+	});
+
 })
 
 
 app.get('/api/latestUpdateDate', function(req, res) {
-	connection.query('SELECT MAX(date) latestDate FROM stocksYahoo', function(err, results, fields) {
-		if (err)
-			throw err;
-		res.end(JSON.stringify(results[0]))
+	mysql.getConnection(function(err, connection) {
+		connection.query('SELECT MAX(date) latestDate FROM stocksYahoo', function(err, results, fields) {
+			if (err)
+				throw err;
+			res.end(JSON.stringify(results[0]))
+
+			connection.release();
+		})		
 	})
+
 })
 
 
