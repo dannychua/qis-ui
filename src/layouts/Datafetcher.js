@@ -77,7 +77,7 @@ class Datafetcher extends Component {
 											<td>{ item.open }</td>
 											<td>{ item.high }</td>
 											<td>{ item.low }</td>
-											<td>{ item.close }</td>
+											<td>{ item.adjClose }</td>
 											<td>{ item.volume }</td>
 										</tr>
 									)
