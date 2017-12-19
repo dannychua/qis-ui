@@ -48,7 +48,7 @@ class Datafetcher extends Component {
 				<Col xs={12}>
 					<h1>Latest Daily Price Updates</h1>
 
-					<p>Latest Update: <strong><Moment format="ddd MMM DD YYYY">{this.state.latestUpdateDate}</Moment></strong></p>
+					<p>Latest Update: <strong><Moment format="ddd MMM DD YYYY" tz="UTC">{this.state.latestUpdateDate}</Moment></strong></p>
 					<p>Total securities: <strong>{ this.state.data.length }</strong></p>
 
 					<Table striped>
@@ -70,7 +70,7 @@ class Datafetcher extends Component {
 										<tr key={key}>
 											<td>{ item.symbol }</td>
 											<td>
-												<Moment format="YYYY-MM-DD, ddd" tz="America/New_York">
+												<Moment format="YYYY-MM-DD, ddd" tz="UTC">
 													{ item.date }
 												</Moment>
 											</td>
